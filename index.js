@@ -2,11 +2,9 @@ const express =require('express');
 const app = express();
 const mongoose =require('mongoose');
 const morgan = require('morgan');
-
 require('dotenv').config();
 
-const port = process.env.PORT || 3000;
-
+const router = require('./routes/createdRoutes');
 
 
 
@@ -20,15 +18,31 @@ mongoose.connect(process.env.MONGODB_URI,{
 })
 .then(()=> console.log('MongoDB Connected')).catch((err)=> console.log(`MongoDB Error ${err}`))
 
+
+
+const port = process.env.PORT || 3000;
+
+
+
+
+
+
+
+
 app.use(morgan('dev'))
 
+
+//for post
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 
-app.get('/', (req, res)=>{
-    res.send('Server is working')
-});
+
+app.use('/suggestion',router)
+
+// app.get('/', (req, res)=>{
+//     res.send('Server is working')
+// });
 
 app.listen(port,()=>
 {
