@@ -27,7 +27,12 @@ Suggestion.find().then((suggestions)=>{
 
 //suggestion by name
 router.get('byname-suggestion', (req, res)=>{
-    Suggestion.findOne({name =req.body.name}).then((suggestions)=>{
+    Suggestion.findOne({name = req.body.name}).then((suggestions)=>{
         return res.status(200).json({ confirmation: 'success', users });
     })
 })
+
+router.get('single-suggestion',(req,res)=>{
+    Suggestion.find()
+})
+
