@@ -1,36 +1,33 @@
-const express = require('express');
+const router = require('express').Router();
+
 const Suggestion = require('../models/Suggestion');
+
+const{getAllSuggestions}=require('../controllers/suggestionController')
+
+
 //create a router
-const router = express.Router();
+ 
 
-
-router.get('/',(req, res) => {
-    Suggestion.find().then(() => {
-            return res.status(200).json({
-                confirmation: 'success'
+// router.get('/',(req, res) => {
+//     Suggestion.find().then(() => {
+//             return res.status(200).json({
+//                 confirmation: 'success'
             
-            });
-        })})
+//             });
+//         })})
 
-        module.exports = router
 
 
 //all suggestions
-router.get('/all-suggestions',(req, res)=>{
-Suggestion.find().then((suggestions)=>{
-    return res.status(200).json({confirmation:'success',suggestions})
-}).catch((err)=>{
-    res.status(400).json({err})
-})
-        })
+router.get('/all-suggestions',getAllSuggestions)
 
 
 //suggestion by name
 router.get('/by-name-suggestion/:', (req, res)=>{
     const name = req.query.suggestions
-  Suggestion.find({name:name}).then((suggestions)=>{
-      return res.status(200).json({confirmation:'success', suggestions})
-  })
+    Suggestion.find({name:name}).then((suggestions)=>{
+        return res.status(200).json({confirmation:'success', suggestions})
+    })
 })
 
 //suggestion by id
@@ -43,22 +40,33 @@ router.get('/single-suggestion/:id',(req,res)=>{
 
 //create suggestion
 router.post('/create-suggestion',(req,res)=>{
-    const newSuggestion = new Suggestion();
+    if(!req.body.name||!req.body.title, req.body.suggestion){
+return res.status(400).json({confirmation:'fail', message :'All fields must be filled'})
+    }
+    
+    
+    Suggestion.findOne({title: req.body.title}).then((foundSuggestion)=>{
+        if(foundSuggestion){
+            return res.status(400).send('Suggestion already exists');
+        }
+        
+        const newSuggestion = new Suggestion();
 
-    newSuggestion.title = req.body.title;
-    newSuggestion.name = req.body.name;
-    newSuggestion.suggestion = req.body.suggestion;
-    newSuggestion.likes = req.body.likes;
-    newSuggestion.anonymous = req.body.anonymous;
+        const {title, name, suggestion} = req.body;
 
-    newSuggestion
-    .save()
-    .then((val)=> res.status(200).json({confirmation:'success', val}))
-    .catch((err)=> res.status(400).json({confirmation:'fail', err}))
-});
-
-
-
+        newSuggestion.title = title;
+        newSuggestion.name = name;
+        newSuggestion.suggestion = suggestion;
+        newSuggestion.id = String(suggestions.length + 1)
+        
+        newSuggestion
+        .save()
+        .then((foundSuggestion)=> res.status(200).json({message:'Suggestion Created', foundSuggestion}))
+        .catch((err)=> res.status(500).json({confirmation:'fail', err}))
+        
+    })
+    
+})
 //update Suggestion
 router.update('/update-suggestion/:title')
 
