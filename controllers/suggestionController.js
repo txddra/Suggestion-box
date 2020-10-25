@@ -1,10 +1,10 @@
-const suggestions = require('../models/Suggestion');
+const Suggestion = require('../models/Suggestion');
 
 
 module.exports={
-    getAllSuggestions:(req, res)=>{
+     getAllSuggestions:(req, res)=>{
         Suggestion.find().then((suggestions)=>{
-            return res.status(200).json({confirmation:'success',suggestions})
+            return res.status(200).json({confirmation:'success', suggestions})
         }).catch((err)=>{
             res.status(500).json({conformation:'fail', err})
         })
@@ -14,8 +14,7 @@ module.exports={
     return res.status(400).json({confirmation:'fail', message :'All fields must be filled'})
         }
         
-        
-        Suggestion.findOne({title: req.body.title}).then((foundSuggestion)=>{
+    Suggestion.findOne({title: req.body.title}).then((foundSuggestion)=>{
             if(foundSuggestion){
                 return res.status(400).send('Suggestion already exists');
             }
@@ -49,7 +48,6 @@ module.exports={
                     message: 'Suggestion Deleted',
                     foundSuggestion
                 }).catch((err) => {
-    
                     return res.status(500).json({
                         message: 'Server error',
                         err
@@ -57,5 +55,17 @@ module.exports={
                 })
             }
         }) 
-    }
+    },
+    updateSuggestion:(req,res)=>{
+        Suggestion.find(req.params.title).then((foundSuggestion)=>{
+        if(!foundSuggestion){
+        return res.status(400).send('Suggestion not found')
+        }
+        
+        const {title,suggestion}= req.body;
+        foundSuggestion.title = title ? title :foundSuggestion.title;
+        foundSuggestion.suggestion = suggestion ? suggestion : foundSuggestion.suggestion;
+        
+        }).catch((err)=>res.status(500).json({message:'Server Error'}))
+        }
 }
