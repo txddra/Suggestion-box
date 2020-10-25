@@ -57,7 +57,16 @@ router.get('/single-suggestion/:id', (req, res) => {
 //create suggestion
 router.post('/create-suggestion', createSuggestion)
 //update Suggestion
-router.update('/update-suggestion/:title')
+router.put('/update-suggestion/:title',(req,res)=>{
+Suggestion.find(req.params.title).then((foundSuggestion)=>{
+const {title,suggestion}= req.body;
+
+foundSuggestion.title = title ? title :foundSuggestion.title;
+foundSuggestion.suggestion = suggestion ? suggestion : foundSuggestion.suggestion;
+
+})
+})
+
 //delete suggestion
 router.delete('/delete-suggestion/:id',deleteSuggestion );
 
