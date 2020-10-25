@@ -4,7 +4,8 @@ const Suggestion = require('../models/Suggestion');
 
 const {
     getAllSuggestions,
-    createSuggestion
+    createSuggestion,
+    deleteSuggestion
 } = require('../controllers/suggestionController')
 
 
@@ -58,27 +59,7 @@ router.post('/create-suggestion', createSuggestion)
 //update Suggestion
 router.update('/update-suggestion/:title')
 //delete suggestion
-router.delete('/delete-suggestion/:id', (req, res) => {
-    Suggestion.findByIdAndDelete(req.params.id).then((foundSuggestion) => {
-        if (!foundSuggestion) {
-            res.status(400).json({
-                confirmation: 'fail',
-                message: 'User not found'
-            })
-        } else {
-            return res.status(200).json({
-                message: 'Suggestion Deleted',
-                foundSuggestion
-            }).catch((err) => {
-
-                return res.status(500).json({
-                    message: 'Server error',
-                    err
-                })
-            })
-        }
-    }) 
-});
+router.delete('/delete-suggestion/:id',deleteSuggestion );
 
 
 
