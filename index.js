@@ -1,5 +1,6 @@
 const express =require('express');
 const app = express();
+const path = require('path')
 const mongoose =require('mongoose');
 const morgan = require('morgan');
 require('dotenv').config();
@@ -8,7 +9,9 @@ const suggestionRouter = require('./routes/suggestionRoutes');
 
 
 
-
+//view engine set up
+app.set('view engine', 'ejs');
+app.set('views',path.join(__dirname, 'views'));
 
 mongoose.connect(process.env.MONGODB_URI,{
     useNewUrlParser: true,
@@ -48,3 +51,4 @@ app.use('api/v1/suggestions',suggestionRouter)
 app.listen(port,()=>
 {
     console.log(`Listening on port ${port}`)})
+
