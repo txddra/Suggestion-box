@@ -67,5 +67,28 @@ module.exports={
         foundSuggestion.suggestion = suggestion ? suggestion : foundSuggestion.suggestion;
         
         }).catch((err)=>res.status(500).json({message:'Server Error'}))
+        },
+        getSingleSuggestion:(req, res) => {
+            console.log(req.params.id);
+            let foundSuggestion = suggestions
+            Suggestion.findById(req.params.id)
+                .then((suggestions) => res.status(200).json({
+                        suggestions
+                    })
+                    .catch((err) => res.status(400).json({
+                        confirmation: 'fail',
+                        err
+                    })))
+        },
+        getSuggestionByName:(req, res) => {
+            const name = req.query.suggestions
+            Suggestion.find({
+                name: name
+            }).then((suggestions) => {
+                return res.status(200).json({
+                    confirmation: 'success',
+                    suggestions
+                })
+            })
         }
 }

@@ -5,7 +5,10 @@ const Suggestion = require('../models/Suggestion');
 const {
     getAllSuggestions,
     createSuggestion,
-    deleteSuggestion
+    deleteSuggestion,
+    updateSuggestion,
+    getSingleSuggestion,
+    getSuggestionByName
 } = require('../controllers/suggestionController')
 
 
@@ -27,48 +30,16 @@ router.get('/all-suggestions', getAllSuggestions)
 
 
 //suggestion by name
-router.get('/by-name-suggestion/:', (req, res) => {
-    const name = req.query.suggestions
-    Suggestion.find({
-        name: name
-    }).then((suggestions) => {
-        return res.status(200).json({
-            confirmation: 'success',
-            suggestions
-        })
-    })
-})
+router.get('/by-name-suggestion/:name', getSuggestionByName)
 
 //suggestion by id
-router.get('/single-suggestion/:id', (req, res) => {
-    console.log(req.params.id);
-    let foundSuggestion = suggestions
-    Suggestion.findById(req.params.id)
-        .then((suggestions) => res.status(200).json({
-                suggestions
-            })
-            .catch((err) => res.status(400).json({
-                confirmation: 'fail',
-                err
-            })))
-})
+router.get('/single-suggestion/:id',getSingleSuggestion )
 
 
 //create suggestion
 router.post('/create-suggestion', createSuggestion)
 //update Suggestion
-router.put('/update-suggestion/:title',(req,res)=>{
-Suggestion.find(req.params.title).then((foundSuggestion)=>{
-if(!foundSuggestion){
-return res.status(400).send('Suggestion not found')
-}
-
-const {title,suggestion}= req.body;
-foundSuggestion.title = title ? title :foundSuggestion.title;
-foundSuggestion.suggestion = suggestion ? suggestion : foundSuggestion.suggestion;
-
-}).catch((err)=>res.status(500).json({message:'Server Error'}))
-})
+router.put('/update-suggestion/:title',updateSuggestion)
 
 //delete suggestion
 router.delete('/delete-suggestion/:id',deleteSuggestion );

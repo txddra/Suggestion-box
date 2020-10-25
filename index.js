@@ -4,7 +4,7 @@ const mongoose =require('mongoose');
 const morgan = require('morgan');
 require('dotenv').config();
 
-const router = require('./routes/createdRoutes');
+const router = require('./routes/suggestionRoutes');
 
 
 
@@ -38,8 +38,8 @@ app.use(express.urlencoded({ extended: false }));
 
 
 //parent route
-app.use('api/v1/suggestions',router)
-
+app.use('/api/v1/suggestions',router)
+// app.use()
 // app.get('/', (req, res)=>{
 //     res.send('Server is working')
 // });
