@@ -59,12 +59,15 @@ router.post('/create-suggestion', createSuggestion)
 //update Suggestion
 router.put('/update-suggestion/:title',(req,res)=>{
 Suggestion.find(req.params.title).then((foundSuggestion)=>{
-const {title,suggestion}= req.body;
+if(!foundSuggestion){
+return res.status(400).send('Suggestion not found')
+}
 
+const {title,suggestion}= req.body;
 foundSuggestion.title = title ? title :foundSuggestion.title;
 foundSuggestion.suggestion = suggestion ? suggestion : foundSuggestion.suggestion;
 
-})
+}).catch((err)=>res.status(500).json({message:'Server Error'}))
 })
 
 //delete suggestion
