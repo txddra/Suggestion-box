@@ -3,10 +3,10 @@ const Suggestion = require('../models/Suggestion');
 
 module.exports={
      getAllSuggestions:(req, res)=>{
-        Suggestion.find().then((suggestions)=>{
-            return res.status(200).json({confirmation:'success', suggestions})
+        Suggestion.find().then((foundSuggestions)=>{
+            return res.json({foundSuggestions})
         }).catch((err)=>{
-            res.status(500).json({conformation:'fail', err})
+            res.status(400).json({conformation:'fail', err})
         })
     } ,
     createSuggestion:(req,res)=>{
