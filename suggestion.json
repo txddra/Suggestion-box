@@ -2,22 +2,30 @@
     {
         "title":"Drink more water",
         "name":"Janet Doragon",
-        "suggestion":"Make sure you're staying hydrated even during the winter months"
+        "suggestion":"Make sure you're staying hydrated even during the winter months",
+        "likes": 3,
+        "anonymous": false
     },
     {
         "title":"Study",
         "name":"Mike Fletcher",
-        "suggestion":"Study, even when you think you know it all"
+        "suggestion":"Study, even when you think you know it all",
+        "likes": 0,
+        "anonymous":false
     },
     {
         "title":"Rest",
         "name":"Kayla Valentine",
-        "suggestion":"Rest is very important to making sure you're healthy"
+        "suggestion":"Rest is very important to making sure you're healthy",
+        "likes": 1,
+        "anonymous":false
     },
     {
         "title":"Fun Fridays",
-        "name":"Larz Morales",
-        "suggestion":"Let's have a study group at the coffee shop"
+        "name":"",
+        "suggestion":"Let's have a study group at the coffee shop",
+        "likes":10,
+        "anonymous":true
     }
     
 ]
