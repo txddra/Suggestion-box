@@ -39,7 +39,7 @@ module.exports={
             if (!foundSuggestion) {
                 res.status(400).json({
                     confirmation: 'fail',
-                    message: 'User not found'
+                    message: 'Suggestion not found'
                 })
             } else {
                 return res.status(200).json({
@@ -63,8 +63,12 @@ module.exports={
         const {title,suggestion}= req.body;
         foundSuggestion.title = title ? title :foundSuggestion.title;
         foundSuggestion.suggestion = suggestion ? suggestion : foundSuggestion.suggestion;
+
+        foundSuggestion.save().then((suggestions)=>{
+            return res.status(200).json({confirmation: 'Suggestion updated',suggestions})
+        })
         
-        }).catch((err)=>res.status(500).json({message:'Server Error'}))
+        }).catch((err)=>res.status(500).json({message:'Server Error',err}))
         },
         getSingleSuggestion:(req, res) => {
             console.log(req.params.id);
