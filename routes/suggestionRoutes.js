@@ -1,6 +1,10 @@
 const router = require('express').Router();
 
-const Suggestion = require('../models/Suggestion');
+// router.get('/',(req, res)=>{
+//     res.render('index')
+// })
+
+// const Suggestion = require('../models/Suggestion');
 
 const {
     getAllSuggestions,

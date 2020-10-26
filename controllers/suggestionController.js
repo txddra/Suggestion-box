@@ -10,15 +10,14 @@ module.exports={
         })
     } ,
     createSuggestion:(req,res)=>{
-        if(!req.body.name||!req.body.title, req.body.suggestion){
+        if(!req.body.title||!req.body.name|| !req.body.suggestion){
     return res.status(400).json({confirmation:'fail', message :'All fields must be filled'})
         }
         
-    Suggestion.findOne({title: req.body.title}).then((foundSuggestion)=>{
-            if(foundSuggestion){
+    Suggestion.find({title: req.body.title}).then((foundSuggestion)=>{
+            if(foundSuggestion.length){
                 return res.status(400).send('Suggestion already exists');
             }
-            
             const newSuggestion = new Suggestion();
     
             const {title, name, suggestion} = req.body;
@@ -26,7 +25,6 @@ module.exports={
             newSuggestion.title = title;
             newSuggestion.name = name;
             newSuggestion.suggestion = suggestion;
-            newSuggestion.id = String(suggestions.length + 1)
             
             newSuggestion
             .save()

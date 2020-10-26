@@ -41,7 +41,7 @@ app.use(express.urlencoded({ extended: false }));
 
 
 //parent route
-app.use('api/v1/suggestions',suggestionRouter)
+app.use('/api/v1/suggestions',suggestionRouter)
 
 // app.get('/', (req, res)=>{
 
