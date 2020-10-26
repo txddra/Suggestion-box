@@ -22,10 +22,10 @@
     },
     {
         "title":"Fun Fridays",
-        "name":"",
+        "name":"Brian Wrigley",
         "suggestion":"Let's have a study group at the coffee shop",
         "likes":10,
-        "anonymous":true
+        "anonymous":false
     }
     
 ]
