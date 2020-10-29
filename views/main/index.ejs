@@ -7,8 +7,9 @@
 </head>
 <body>
     <h1>Suggestions</h1>
-    <% suggestionList.forEach(element => { %>
+    <%console.log(suggestionList)%>
+    <% if(suggestionList.length){suggestionList.forEach(element => { %>
      <p><a href="#"><%=element.suggestion%> </a></p>
-    <% }) %>
+    <% })} %>
 </body>
 </html>
