@@ -1,5 +1,5 @@
 const Suggestion = require('../models/Suggestion');
-
+const Comment = require('../models/Comment')
 
 module.exports={
      getAllSuggestions:(req, res)=>{
@@ -69,16 +69,26 @@ module.exports={
         }).catch((err)=>res.status(500).json({message:'Server Error'}))
         },
         getSingleSuggestion:(req, res) => {
-            console.log(req.params.id);
-            let foundSuggestion = suggestions
+            // console.log(req.params.id);
+            // let foundSuggestion = suggestions
             Suggestion.findById(req.params.id)
-                .then((suggestions) => res.status(200).json({
-                        suggestions
+                .then((suggestions) => {if(suggestions){
+                    Comment.find({
+                        owner: suggestions.id
+                    }).then((foundComment)=>{
+                        return res.render('main/singleSuggestion',{
+                            foundSuggestion:suggestions,
+                            foundComment: foundComment
+                        })
                     })
-                    .catch((err) => res.status(400).json({
-                        confirmation: 'fail',
-                        err
-                    })))
+                }else{
+                    return res.status(400).send('no suggestions')
+                }
+                    // .catch((err) => res.status(400).json({
+                    //     confirmation: 'fail',
+                    //     err
+                    // }))
+            })
         },
         getSuggestionByName:(req, res) => {
             const name = req.query.suggestions
