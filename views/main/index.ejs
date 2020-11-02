@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suggestion Box</title>
+    <!-- <link rel="stylesheet" href="/stylesheets/style.css"/> -->
+</head>
+<body>
+    <h1>Suggestion List</h1>
+    <%console.log(suggestionList)%>
+    <% if(suggestionList.length){suggestionList.forEach(element => {%>
+    <p><a href="/suggestions/single-suggestion/:id<%=element.id%>" %><%=element.suggestion%> </a></p>
+
+
+    <% })} else{%>
+        <h1>No Words Found </h1>
+        <% } %>
+        <button><a href="/suggestions/create-suggestion/">Create a Suggestion
+        </a></button>
+</body>
+</html>
