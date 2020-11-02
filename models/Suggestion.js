@@ -9,5 +9,5 @@ const suggestionSchema = new mongoose.Schema({
     timeCreated:{type:Date}
 });
 
- 
+    
 module.exports= mongoose.model('suggestions', suggestionSchema); 

@@ -9,9 +9,6 @@ const suggestionRouter = require('./routes/suggestionRoutes');
 
 
 
-//view engine set up
-app.set('view engine', 'ejs');
-app.set('views',path.join(__dirname, 'views'));
 
 mongoose.connect(process.env.MONGODB_URI,{
     useNewUrlParser: true,
@@ -26,6 +23,9 @@ mongoose.connect(process.env.MONGODB_URI,{
 const port = process.env.PORT || 3000;
 
 
+//view engine set up
+app.set('view engine', 'ejs');
+app.set('views',path.join(__dirname, 'views'));
 
 
 
@@ -52,3 +52,4 @@ app.listen(port,()=>
 {
     console.log(`Listening on port ${port}`)})
 
+module.exports = app;

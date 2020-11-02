@@ -4,7 +4,7 @@ const suggestionSeed = require('./suggestion.json');
 require('dotenv').config();
 
 
-const seedFunc = async()=>{
+const seedFunc = async () => {
     try {
         const data = await Suggestion.create(suggestionSeed);
         await console.log(`${data.length} records created`);
@@ -23,20 +23,17 @@ const seedFunc = async()=>{
 
 
 mongoose
-  .connect(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true,
-    useFindAndModify: false
-  })
-  .then(() => {
-      console.log('MongoDB Connected')
-    mongoose.connection.db.dropDatabase();
-  })
-  .then(() => {
-    seedFunc();
-  })
-  .catch((err) => console.log(`MongoDB Error: ${err}`));
-
-
-  
+    .connect(process.env.MONGODB_URI, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        useCreateIndex: true,
+        useFindAndModify: false
+    })
+    .then(() => {
+        console.log('MongoDB Connected')
+        mongoose.connection.db.dropDatabase();
+    })
+    .then(() => {
+        seedFunc();
+    })
+    .catch((err) => console.log(`MongoDB Error: ${err}`));
